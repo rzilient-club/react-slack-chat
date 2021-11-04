@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import chatIcon from '../../assets/chat-icon.svg';
-
+import { faCommentDots } from '@fortawesome/free-regular-svg-icons/faCommentDots';
 import SlackBot from 'slack';
 import { load as emojiLoader, parse as emojiParser } from 'gh-emoji';
 
@@ -674,7 +673,7 @@ class ReactSlackChat extends Component {
               )}
             <div className={styles.header__text}>
               <div>
-                <FontAwesomeIcon icon={chatIcon} />
+                <FontAwesomeIcon icon={faCommentDots} />
               </div>
               <h2 className={styles.transition}>
                 {this.state.helpText || 'Help?'}
@@ -729,7 +728,7 @@ class ReactSlackChat extends Component {
               />
               <div className={styles.header__text}>
                 <div>
-                  <FontAwesomeIcon icon={chatIcon} />
+                  <FontAwesomeIcon icon={faCommentDots} />
                 </div>
                 <h2 className={styles.transition}>
                   {this.activeChannel.name || 'Help?'}
