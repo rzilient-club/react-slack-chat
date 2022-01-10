@@ -18,15 +18,14 @@ function App() {
         helpText="Rzilient Support"
         apiToken={process.env.REACT_APP_SLACK_BOT}
         singleUserMode
+        tsNewChat={0.0000012}
         closeChatButton
         messageSupportChat=""
         openSupportChat={open}
         channels={[
           {
-            name: 'rzilient',
-          },
-          {
-            name: 'online-support',
+            name: 'tech_live_status',
+            id: 'C01HTA4LTRQ',
           },
         ]}
         themeColor="#172b58"
