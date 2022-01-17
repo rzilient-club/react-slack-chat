@@ -300,11 +300,9 @@ class ReactSlackChat extends Component {
   }
 
   checkTimeStamp(channel) {
-    const tsDiff =
-      Math.abs(
-        this.chatInitiatedTs - Number(this.TS_MAP[channel.name || channel.id])
-      ) /
-      (1000 * 3600 * 24);
+    const tsDiff = Math.abs(
+      this.chatInitiatedTs - Number(this.TS_MAP[channel.name || channel.id])
+    );
     console.log(channel);
     console.log(this.chatInitiatedTs);
     console.log(Number(this.TS_MAP[channel.name || channel.id]));
