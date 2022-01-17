@@ -306,8 +306,9 @@ class ReactSlackChat extends Component {
       ) /
       (1000 * 3600 * 24);
     console.log(channel);
+    console.log(this.chatInitiatedTs);
+    console.log(Number(this.TS_MAP[channel.name || channel.id]));
     console.log(tsDiff);
-    console.log(this.props.tsNewChat);
     if (tsDiff > (this.props.tsNewChat || 24 * 60 * 60)) {
       this.TS_MAP[channel.name || channel.id] = null;
     }
