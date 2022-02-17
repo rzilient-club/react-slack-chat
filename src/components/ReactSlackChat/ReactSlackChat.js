@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-regular-svg-icons/faCommentDots';
+
 import SlackBot from 'slack';
 import { load as emojiLoader, parse as emojiParser } from 'gh-emoji';
 
@@ -299,25 +300,11 @@ class ReactSlackChat extends Component {
       });
   }
 
-  checkTimeStamp(channel) {
-    const tsDiff = Math.abs(
-      this.chatInitiatedTs - Number(this.TS_MAP[channel.name || channel.id])
-    );
-    console.log(channel);
-    console.log(this.chatInitiatedTs);
-    console.log(Number(this.TS_MAP[channel.name || channel.id]));
-    console.log(tsDiff);
-    if (tsDiff > (this.props.tsNewChat || 24 * 60 * 60)) {
-      this.TS_MAP[channel.name || channel.id] = null;
-    }
-  }
-
   loadMessages(channel) {
     const that = this;
     if (!this.chatInitiatedTs) {
       this.chatInitiatedTs = Date.now() / 1000;
     }
-    this.checkTimeStamp(channel);
     // define loadMessages function
     const getMessagesFromSlack = () => {
       const messagesLength = that.state.messages.length;
@@ -399,14 +386,9 @@ class ReactSlackChat extends Component {
           debugLog(
             `There was an error loading messages for ${channel.name}. ${err}`
           );
-          if (err.message === 'thread_not_found') {
-            this.TS_MAP[channel.name || channel.id] = null;
-            this.loadMessages(channel.name);
-          } else {
-            this.setState({
-              failed: true,
-            });
-          }
+          return this.setState({
+            failed: true,
+          });
         });
     };
 
@@ -520,12 +502,6 @@ class ReactSlackChat extends Component {
     return false;
   }
 
-  /*
-  This method is called when the client gets into the chat room.
-  Here the timestamp that determines the thread is stored inside the TS_MAP, if for any reason the operator
-  deletes the whole thread from slack, the chat won't be able to locate the thread opening the chat room which will
-  crash the chat boot.
-   */
   goToChatView(e, channel) {
     // stop propagation so we can prevent any other click events from firing
     e.stopPropagation();
@@ -603,27 +579,25 @@ class ReactSlackChat extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.openSupportChat !== prevProps.openSupportChat) {
-      if (this.props.openSupportChat) {
-        this.activeChannel = this.state.channels[0];
-        this.setState(
-          {
-            postMyMessage: `Hey, I need help with my device ${
-              this.props.messageSupportChat || ''
-            }`,
-            chatbox: {
-              active: true,
-              channelActiveView: false,
-              chatActiveView: true,
-            },
+      this.activeChannel = this.state.channels[0];
+      this.setState(
+        {
+          postMyMessage: `Hey, I need help with my device ${
+            this.props.messageSupportChat || ''
+          }`,
+          chatbox: {
+            active: true,
+            channelActiveView: false,
+            chatActiveView: true,
           },
-          () => {
-            setTimeout(() => {
-              document.getElementById('chat_helpHeader').click();
-            }, 500);
-            this.postMyMessage();
-          }
-        );
-      }
+        },
+        () => {
+          setTimeout(() => {
+            document.getElementById('chat_helpHeader').click();
+          }, 500);
+          this.props.openSupportChat && this.postMyMessage();
+        }
+      );
     }
   }
 
@@ -702,10 +676,10 @@ class ReactSlackChat extends Component {
               </div>
               <div>
                 <h2 className={styles.transition}>
-                  {this.state.helpText || 'Help?'}
+                  {this.activeChannel.name || 'Help?'}
                 </h2>
                 <h3 className={styles.subText}>
-                  Click on a channel to interact with.
+                  Online support for ♻️ rzilient
                 </h3>
               </div>
             </div>
@@ -846,12 +820,11 @@ ReactSlackChat.propTypes = {
   // add an "x" close button in the corner of the chat window
   closeChatButton: PropTypes.bool,
   openSupportChat: PropTypes.bool,
-  messageSupportChat: PropTypes.string,
+  messageSupportChat: PropTypes.bool,
   themeColor: PropTypes.string,
   userImage: PropTypes.string,
   hooks: PropTypes.array,
   debugMode: PropTypes.bool,
-  tsNewChat: PropTypes.number,
 };
 
 export default ReactSlackChat;
