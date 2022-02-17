@@ -700,13 +700,14 @@ class ReactSlackChat extends Component {
               <div>
                 <FontAwesomeIcon icon={faCommentDots} />
               </div>
-              <h2 className={styles.transition}>
-                {this.state.helpText || 'Help?'}
-              </h2>
-              <h3 className={styles.subText}>
-                Click on a channel to interact with.
-              </h3>
-              
+              <div>
+                <h2 className={styles.transition}>
+                  {this.state.helpText || 'Help?'}
+                </h2>
+                <h3 className={styles.subText}>
+                  Click on a channel to interact with.
+                </h3>
+              </div>
             </div>
             {this.props.closeChatButton ? (
               <button
@@ -756,12 +757,14 @@ class ReactSlackChat extends Component {
                 <div>
                   <FontAwesomeIcon icon={faCommentDots} />
                 </div>
-                <h2 className={styles.transition}>
-                  {this.activeChannel.name || 'Help?'}
+                <div>
+                  <h2 className={styles.transition}>
+                    {this.activeChannel.name || 'Help?'}
+                  </h2>
                   <h3 className={styles.subText}>
                     Online support for ♻️ rzilient
                   </h3>
-                </h2>
+                </div>
               </div>
               {this.props.closeChatButton ? (
                 <button
