@@ -702,10 +702,11 @@ class ReactSlackChat extends Component {
               </div>
               <h2 className={styles.transition}>
                 {this.state.helpText || 'Help?'}
-                <h3 className={styles.subText}>
-                  Click on a channel to interact with.
-                </h3>
               </h2>
+              <h3 className={styles.subText}>
+                Click on a channel to interact with.
+              </h3>
+              
             </div>
             {this.props.closeChatButton ? (
               <button
