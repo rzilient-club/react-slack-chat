@@ -679,7 +679,7 @@ class ReactSlackChat extends Component {
                   {this.activeChannel.name || 'Help?'}
                 </h2>
                 <h3 className={styles.subText}>
-                  Online support for ♻️ rzilient
+                  Click on a channel to interact with.
                 </h3>
               </div>
             </div>
