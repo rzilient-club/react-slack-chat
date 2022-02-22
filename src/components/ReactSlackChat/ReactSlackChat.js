@@ -303,10 +303,6 @@ class ReactSlackChat extends Component {
     const tsDiff = Math.abs(
       this.chatInitiatedTs - Number(this.TS_MAP[channel.name || channel.id])
     );
-    console.log(channel);
-    console.log(this.chatInitiatedTs);
-    console.log(Number(this.TS_MAP[channel.name || channel.id]));
-    console.log(tsDiff);
     if (tsDiff > (this.props.tsNewChat || 24 * 60 * 60)) {
       this.TS_MAP[channel.name || channel.id] = null;
     }
@@ -482,15 +478,16 @@ class ReactSlackChat extends Component {
           title: this.fileUploadTitle,
           apiToken: this.apiToken,
           channel: this.activeChannel.id,
+          ts: this.TS_MAP[this.activeChannel.name || this.activeChannel.id],
         })
-          .then(() =>
+          .then(() => {
             this.setState({
               // Upload is done, once this callback is hit
               // We can take off the value and hide the loader
               postMyFile: '',
               fileUploadLoader: false,
-            })
-          )
+            });
+          })
           .catch((err) => {
             debugLog('Could not post file', err);
           })

@@ -1,6 +1,6 @@
 import { debugLog } from './utils';
 
-export const postFile = ({ file, title, apiToken, channel }) => {
+export const postFile = ({ file, title, apiToken, channel, ts }) => {
   return new Promise((resolve, reject) => {
     debugLog('UPLOADING', file);
     const options = {
@@ -9,6 +9,7 @@ export const postFile = ({ file, title, apiToken, channel }) => {
       filename: file.name,
       filetype: 'auto',
       channels: channel,
+      ts,
     };
     const form = new FormData();
     form.append('token', options.token);
@@ -16,6 +17,8 @@ export const postFile = ({ file, title, apiToken, channel }) => {
     form.append('title', options.title);
     form.append('filetype', options.filetype);
     form.append('channels', options.channels);
+    form.append('thread_ts', options.ts);
+    form.append('initial_comment', `Thanks! ${options.filename} file uploaded`);
     form.append('file', new Blob([file]));
     const request = new XMLHttpRequest();
     request.open('POST', 'https://slack.com/api/files.upload');
