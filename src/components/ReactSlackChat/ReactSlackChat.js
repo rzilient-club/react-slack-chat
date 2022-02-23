@@ -431,24 +431,9 @@ class ReactSlackChat extends Component {
         className={styles.chat__contact__photo}
         alt="mentionedUserImg"
       />
-    ) : // Check admin or client user?
-    isAdmin(message) ? (
-      <img
-        src={`https://robohash.org/${userId}?set=set2`}
-        className={styles.chat__contact__photo}
-        alt={userId}
-      />
-    ) : // Check system message or client user?
-    isSystemMessage(message) ? (
-      <img
-        src={`https://robohash.org/${userId}?set=set3`}
-        className={styles.chat__contact__photo}
-        alt={userId}
-      />
     ) : (
-      // Regular browser client user
       <img
-        src={`https://robohash.org/${userId}`}
+        src={this.props.systemImage}
         className={styles.chat__contact__photo}
         alt={userId}
       />
@@ -846,6 +831,7 @@ ReactSlackChat.propTypes = {
   messageSupportChat: PropTypes.string,
   themeColor: PropTypes.string,
   userImage: PropTypes.string,
+  systemImage: PropTypes.string,
   hooks: PropTypes.array,
   debugMode: PropTypes.bool,
   tsNewChat: PropTypes.number,

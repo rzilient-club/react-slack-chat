@@ -30,6 +30,7 @@ function App() {
         ]}
         themeColor="#172b58"
         userImage="http://www.iconshock.com/img_vista/FLAT/mail/jpg/robot_icon.jpg"
+        systemImage="chat_logo_128.png"
         hooks={[
           {
             /* My Custom Hook */
