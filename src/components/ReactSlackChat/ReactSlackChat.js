@@ -312,8 +312,9 @@ class ReactSlackChat extends Component {
     const that = this;
     if (!this.chatInitiatedTs) {
       this.chatInitiatedTs = Date.now() / 1000;
+    } else {
+      this.checkTimeStamp(channel);
     }
-    this.checkTimeStamp(channel);
     // define loadMessages function
     const getMessagesFromSlack = () => {
       const messagesLength = that.state.messages.length;
@@ -585,27 +586,25 @@ class ReactSlackChat extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.openSupportChat !== prevProps.openSupportChat) {
-      if (this.props.openSupportChat) {
-        this.activeChannel = this.state.channels[0];
-        this.setState(
-          {
-            postMyMessage: `Hey, I need help with my device ${
-              this.props.messageSupportChat || ''
-            }`,
-            chatbox: {
-              active: true,
-              channelActiveView: false,
-              chatActiveView: true,
-            },
+      this.activeChannel = this.state.channels[0];
+      this.setState(
+        {
+          postMyMessage: `Hey, I need help with my device ${
+            this.props.messageSupportChat || ''
+          }`,
+          chatbox: {
+            active: true,
+            channelActiveView: false,
+            chatActiveView: true,
           },
-          () => {
-            setTimeout(() => {
-              document.getElementById('chat_helpHeader').click();
-            }, 500);
-            this.postMyMessage();
-          }
-        );
-      }
+        },
+        () => {
+          setTimeout(() => {
+            document.getElementById('chat_helpHeader').click();
+          }, 500);
+          this.props.openSupportChat && this.postMyMessage();
+        }
+      );
     }
   }
 
