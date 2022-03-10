@@ -82,7 +82,7 @@ class ReactSlackChat extends Component {
     this.fileUploadTitle = `Posted by ${this.props.botName}`;
 
     // Theme variables
-    this.themeDefaultColor = '#2e7eea'; // Defined as $theme_color sass variable in .scss
+    this.themeDefaultColor = '#454343'; // Defined as $theme_color sass variable in .scss
 
     // Bind Slack Message functions
     this.loadMessages = this.loadMessages.bind(this);
@@ -667,7 +667,14 @@ class ReactSlackChat extends Component {
           )}
           onClick={this.openChatBox}
         >
-          <div className={styles.helpHeader} id="chat_helpHeader">
+          <div
+            className={classNames(
+              this.state.chatbox.active
+                ? styles.helpHeader
+                : styles.notActiveHeader
+            )}
+            id="chat_helpHeader"
+          >
             {/* <span className={styles.unreadNotificationsBadge}>
               {this.state.newMessageNotification}
             </span> */}
