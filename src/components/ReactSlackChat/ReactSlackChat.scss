@@ -1,7 +1,7 @@
 //colors
 $white: white;
 $black_30: rgba(0, 0, 0, 0.3);
-$theme_color: #2e7eea; // IF YOU CHANGE THIS, UPDATE THE VAR IN CONSTRUCTOR IN ReactSlackChat
+$theme_color: #454343; // IF YOU CHANGE THIS, UPDATE THE VAR IN CONSTRUCTOR IN ReactSlackChat
 $color_jade_approx: #00b570;
 $color_celeste_approx: #ccc;
 $color_shamrock_approx: #43dea3;
@@ -38,21 +38,21 @@ $font_3: sans-serif;
   color: $white;
 }
 .card {
-  background-color: $color_athens_gray_approx;
   font-family: Poppins;
   //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-  box-shadow: 0 0 10px 2px $black_30;
   border-radius: 15px;
   width: 90px;
   height: 80px;
   position: fixed;
   bottom: 0px;
-  right: 30px;
+  right: 0px;
   cursor: pointer;
   > div {
     min-height: 0px;
   }
   &.active {
+    background-color: $color_athens_gray_approx;
+    box-shadow: 0 0 10px 2px $black_30;
     border-radius: 15px;
     cursor: default;
     height: 70%;
@@ -78,6 +78,7 @@ $font_3: sans-serif;
       .helpHeader {
         visibility: hidden;
         border-radius: 15px;
+
         opacity: 0;
         //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
         transition: visibility 0s, opacity 0.5s linear;
@@ -122,6 +123,7 @@ $font_3: sans-serif;
     &.channelActive .helpHeader {
       visibility: visible;
       opacity: 1;
+
       //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
       transition: visibility 0s, opacity 0.5s linear;
     }
@@ -296,7 +298,6 @@ $font_3: sans-serif;
   left: 0rem;
   width: 100%;
   height: 90px;
-  background: $theme_color;
 }
 
 .helpHeader {
@@ -305,6 +306,10 @@ $font_3: sans-serif;
   padding: 20px;
   box-sizing: border-box;
   border-radius: 15px 15px 0px 0px;
+}
+
+.notActiveHeader {
+  background: transparent;
 }
 
 .header__text {
