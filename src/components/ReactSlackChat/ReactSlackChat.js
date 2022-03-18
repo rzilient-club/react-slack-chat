@@ -312,9 +312,9 @@ class ReactSlackChat extends Component {
     const that = this;
     if (!this.chatInitiatedTs) {
       this.chatInitiatedTs = Date.now() / 1000;
-    } else {
-      this.checkTimeStamp(channel);
     }
+    this.checkTimeStamp(channel);
+
     // define loadMessages function
     const getMessagesFromSlack = () => {
       const messagesLength = that.state.messages.length;
@@ -504,11 +504,11 @@ class ReactSlackChat extends Component {
   }
 
   /*
-  This method is called when the client gets into the chat room.
-  Here the timestamp that determines the thread is stored inside the TS_MAP, if for any reason the operator
-  deletes the whole thread from slack, the chat won't be able to locate the thread opening the chat room which will
-  crash the chat boot.
-   */
+    This method is called when the client gets into the chat room.
+    Here the timestamp that determines the thread is stored inside the TS_MAP, if for any reason the operator
+    deletes the whole thread from slack, the chat won't be able to locate the thread opening the chat room which will
+    crash the chat boot.
+     */
   goToChatView(e, channel) {
     // stop propagation so we can prevent any other click events from firing
     e.stopPropagation();
